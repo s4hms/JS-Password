@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: azure;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: 1fr 50vh 1fr;
+}
+
+.heading {
+  grid-column: 1/-1;
+  justify-self: center;
+  height: 10rem;
+
+  display: flex;
+  align-items: center;
+}
+
+.heading h1 {
+  text-transform: uppercase;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.input-container {
+  grid-column: 1/5;
+  align-self: center;
+}
+
+.input-container > div {
+  margin-bottom: 2rem;
+}
+
+.input-parent {
+  display: flex;
+  justify-content: space-between;
+  /* margin-bottom: 1rem;
+  margin-top: 1rem; */
+}
+
+.input-parent > label {
+  margin-left: 1rem;
+}
+
+.input-parent > input {
+  margin-right: 4rem;
+  padding: 2px 6px;
+  width: 5rem;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.generate-container {
+  grid-column: span 2;
+  align-self: center;
+  justify-self: center;
+}
+
+.generate-container > input {
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.generate-container > input:hover {
+  cursor: pointer;
+  background-color: rgb(179, 171, 171);
+}
+
+.generate-container > input:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+    inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.result-container {
+  grid-column: span 2;
+  align-self: center;
+  justify-self: center;
+}
+
+.social-container {
+  grid-column: 1/-1;
+  justify-self: center;
+}
+
+.social-container {
+  grid-column: -3/-1;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.social-container a {
+  text-decoration: none;
+}
+
+.twitter {
+  width: 20px;
+  height: 40px;
+}
