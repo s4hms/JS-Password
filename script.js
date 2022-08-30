@@ -74,6 +74,9 @@ const getLowerAlpha = function (nos) {
 };
 
 const getNum = function (nos) {
+  if (nos === 0) {
+    return "";
+  }
   return Math.floor(Math.random() * 10 ** nos).toString();
 };
 
@@ -101,23 +104,39 @@ document.querySelector(".gen-btn").addEventListener("click", function () {
   speCha = document.querySelector(".spCha").value.split("");
 
   if (checkSpeCha(speCha)) {
-    let retGetUpperAlpha = getUpperAlpha(upperAlpha);
-    let retGetLowerAlpha = getLowerAlpha(lowerAlpha);
-    let retGetNum = getNum(noNum);
+    if (
+      upperAlpha === 0 &&
+      lowerAlpha === 0 &&
+      noNum === 0 &&
+      speCha.length === 0
+    ) {
+      document.querySelector(".result").textContent = `No input was given`;
+      document.querySelector(".output").style.display = "none";
+    } else {
+      let retGetUpperAlpha = getUpperAlpha(upperAlpha);
+      let retGetLowerAlpha = getLowerAlpha(lowerAlpha);
+      let retGetNum = getNum(noNum);
 
-    const retGetShuffle = getShuffle(
-      retGetUpperAlpha,
-      retGetLowerAlpha,
-      retGetNum,
-      speCha.join("")
-    );
+      const retGetShuffle = getShuffle(
+        retGetUpperAlpha,
+        retGetLowerAlpha,
+        retGetNum,
+        speCha.join("")
+      );
 
-    document.querySelector(
-      ".result"
-    ).textContent = `Your password is ${retGetShuffle}`;
+      document.querySelector(".result").textContent = `Your password: `;
+      document.querySelector(".output-text").value = retGetShuffle;
+      document.querySelector(".output").style.display = "block";
+    }
   } else {
     document.querySelector(".result").textContent =
-      "Please provide valid apecial charecter(s)";
-    console.log(validSpecialChar.includes(speCha));
+      "Please provide valid special character(s)";
+    document.querySelector(".output").style.display = "none";
   }
+});
+
+document.querySelector(".copy-btn").addEventListener("click", function () {
+  let copiedText = document.querySelector(".output-text");
+  copiedText.select();
+  navigator.clipboard.writeText(copiedText.value);
 });
