@@ -5,6 +5,12 @@ let lowerAlpha = 0;
 let noNum = 0;
 let speCha = "";
 
+const lowerAlphaChar = [...Array(26)].map((ele, i) =>
+  String.fromCharCode(97 + i)
+);
+
+const upperAlphaChar = lowerAlphaChar.toString().toUpperCase().split(",");
+
 const validSpecialChar = [
   "~",
   "`",
@@ -40,10 +46,6 @@ const validSpecialChar = [
   "'",
 ];
 
-const lowerAlphaChar = [...Array(26)].map((ele, i) =>
-  String.fromCharCode(97 + i)
-);
-
 const checkSpeCha = function (arr) {
   for (let ele of arr) {
     if (validSpecialChar.includes(ele)) {
@@ -55,7 +57,37 @@ const checkSpeCha = function (arr) {
   return true;
 };
 
-const getUpperAlpha = function (nos) {};
+const getUpperAlpha = function (nos) {
+  let randUpperAlpha = [];
+  for (let i = 0; i < nos; i++) {
+    randUpperAlpha.push(upperAlphaChar[Math.floor(Math.random() * 26)]);
+  }
+  return randUpperAlpha.join("");
+};
+
+const getLowerAlpha = function (nos) {
+  let randLowerAlpha = [];
+  for (let i = 0; i < nos; i++) {
+    randLowerAlpha.push(lowerAlphaChar[Math.floor(Math.random() * 26)]);
+  }
+  return randLowerAlpha.join("");
+};
+
+const getNum = function (nos) {
+  return Math.floor(Math.random() * 10 ** nos).toString();
+};
+
+const getShuffle = function (upperArg, lowerArg, numArg, speArg) {
+  let combArr = (upperArg + lowerArg + numArg + speArg).split("");
+  let lenCombArr = combArr.length;
+  let shufArr = [];
+  while (lenCombArr) {
+    randIndex = Math.floor(Math.random() * lenCombArr);
+    shufArr.push(combArr.splice(randIndex, 1));
+    lenCombArr--;
+  }
+  return shufArr.join("");
+};
 
 document.querySelector(".upNum").value = upperAlpha;
 document.querySelector(".loNum").value = lowerAlpha;
@@ -69,12 +101,23 @@ document.querySelector(".gen-btn").addEventListener("click", function () {
   speCha = document.querySelector(".spCha").value.split("");
 
   if (checkSpeCha(speCha)) {
+    let retGetUpperAlpha = getUpperAlpha(upperAlpha);
+    let retGetLowerAlpha = getLowerAlpha(lowerAlpha);
+    let retGetNum = getNum(noNum);
+
+    const retGetShuffle = getShuffle(
+      retGetUpperAlpha,
+      retGetLowerAlpha,
+      retGetNum,
+      speCha.join("")
+    );
+
     document.querySelector(
       ".result"
-    ).textContent = `${upperAlpha} ${lowerAlpha} ${noNum} ${speCha}`;
+    ).textContent = `Your password is ${retGetShuffle}`;
   } else {
     document.querySelector(".result").textContent =
-      "Please provide valid apecial charecters";
+      "Please provide valid apecial charecter(s)";
     console.log(validSpecialChar.includes(speCha));
   }
 });
